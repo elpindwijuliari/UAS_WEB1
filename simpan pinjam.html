@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koperasi Sejahtera - Aplikasi Simpan Pinjam</title>
+    <style>
+        /* --- 3. CSS untuk Styling --- */
+        :root {
+            --primary-color: #1e3799; /* Biru Tua untuk Header/Footer */
+            --secondary-color: #f6b93b; /* Emas untuk Judul/Aksen */
+            --bg-body: #f1f2f6;
+            --text-dark: #2f3542;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+        }
+
+        /* --- 2. Header dan Navigasi --- */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-section h1 {
+            color: var(--secondary-color); /* Perubahan warna teks judul */
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Konten Utama */
+        main {
+            padding: 40px 10%;
+            min-height: 70vh;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .page {
+            display: none; /* Sembunyikan halaman */
+        }
+
+        .active {
+            display: block; /* Tampilkan halaman aktif */
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #edeff2;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0c2461;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+        }
+
+        /* 8. Responsivitas (Media Query) */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            nav ul {
+                gap: 10px;
+                font-size: 14px;
+            }
+            main {
+                padding: 20px 5%;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-section">
+            <img src="https://cdn-icons-png.flaticon.com/512/2845/2845939.png" width="40" alt="Logo">
+            <h1>Koperasi Maju Jaya</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('beranda')">Beranda</a></li>
+                <li><a href="#" onclick="showPage('transaksi')">Transaksi</a></li>
+                <li><a href="#" onclick="showPage('profil')">Profil</a></li>
+                <li><a href="#" onclick="showPage('login')">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            
+            <section id="beranda" class="page active">
+                <h2>Panduan Penggunaan Aplikasi</h2>
+                <p>Selamat datang di sistem manajemen keuangan mandiri. Berikut adalah langkahnya:</p>
+                <ol>
+                    <li>Lakukan <strong>Login</strong> dengan akun anggota Anda.</li>
+                    <li>Buka menu <strong>Transaksi</strong> untuk mengajukan pinjaman atau menambah simpanan.</li>
+                    <li>Lengkapi formulir dengan nominal dan kategori yang sesuai.</li>
+                    <li>Data Anda akan langsung tercatat dalam sistem riwayat transaksi di bawah form.</li>
+                </ol>
+            </section>
+
+            <section id="transaksi" class="page">
+                <h2>Form Transaksi Keuangan</h2>
+                <form id="loanForm">
+                    <div class="form-group">
+                        <label>Nama Anggota</label>
+                        <input type="text" id="namaAnggota" placeholder="Masukkan nama lengkap">
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah (Rp)</label>
+                        <input type="number" id="jumlahUang" placeholder="Contoh: 1000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori Transaksi</label>
+                        <select id="kategori">
+                            <option value="">-- Pilih Jenis --</option>
+                            <option value="Simpanan">Simpanan Pokok/Wajib</option>
+                            <option value="Pinjaman">Pengajuan Pinjaman</option>
+                            <option value="Angsuran">Pembayaran Angsuran</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="simpanTransaksi()">Simpan Data</button>
+                </form>
+
+                <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+                
+                <h3>Daftar Riwayat Transaksi</h3>
+                <table id="tabelData">
+                    <thead>
+                        <tr>
+                            <th>Nama Transaksi</th>
+                            <th>Jumlah</th>
+                            <th>Kategori</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </section>
+
+            <section id="profil" class="page">
+                <h2>Tentang Koperasi Maju Jaya</h2>
+                <p>Aplikasi Simpan Pinjam ini dibangun untuk mendigitalisasi proses keuangan koperasi, memastikan transparansi data bagi setiap anggota, dan mempercepat proses pengajuan pinjaman secara online.</p>
+            </section>
+
+            <section id="login" class="page">
+                <h2>Login Anggota</h2>
+                <form>
+                    <div class="form-group">
+                        <label>ID Anggota</label>
+                        <input type="text" placeholder="Masukkan ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="********">
+                    </div>
+                    <button type="submit">Masuk ke Sistem</button>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Koperasi Maju Jaya - NIM: 0987654321</p>
+    </footer>
+
+    <script>
+        // Navigasi Halaman
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Validasi dan Simpan Data
+        function simpanTransaksi() {
+            const nama = document.getElementById('namaAnggota').value;
+            const jumlah = document.getElementById('jumlahUang').value;
+            const kategori = document.getElementById('kategori').value;
+
+            // Validasi Input Kosong
+            if (nama.trim() === "" || jumlah === "" || kategori === "") {
+                alert("Pesan Kesalahan: Harap isi semua kolom sebelum menyimpan!");
+                return;
+            }
+
+            // Memasukkan ke Tabel
+            const table = document.getElementById('tabelData').getElementsByTagName('tbody')[0];
+            const row = table.insertRow();
+            
+            row.insertCell(0).innerText = "Transaksi a/n " + nama;
+            row.insertCell(1).innerText = "Rp " + parseInt(jumlah).toLocaleString('id-ID');
+            row.insertCell(2).innerText = kategori;
+
+            // Bersihkan Form
+            document.getElementById('loanForm').reset();
+            alert("Berhasil: Transaksi telah dicatat ke dalam sistem.");
+        }
+    </script>
+</body>
+</html>

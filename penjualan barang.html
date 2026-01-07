@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce System | Penjualan Barang</title>
+    <style>
+        /* --- 3. CSS untuk Styling --- */
+        :root {
+            --primary: #2c3e50;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg);
+            color: #333;
+        }
+
+        /* --- 2. Header dan Navigasi --- */
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-box h1 {
+            color: var(--accent); /* Ubah warna teks judul aplikasi */
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        /* Layout Konten */
+        main {
+            padding: 40px 5%;
+            min-height: 75vh;
+        }
+
+        .container {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .page {
+            display: none; /* Sembunyikan semua halaman */
+        }
+
+        .active {
+            display: block; /* Tampilkan halaman aktif */
+        }
+
+        /* Form Styling */
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--success);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        /* --- 8. Responsivitas (Media Query) --- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                gap: 10px;
+            }
+            main {
+                padding: 20px 3%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-box">
+            <img src="https://cdn-icons-png.flaticon.com/512/1170/1170576.png" width="40" alt="Logo">
+            <h1>E-Shop Admin</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="navigasi('beranda')">Beranda</a></li>
+                <li><a href="#" onclick="navigasi('transaksi')">Transaksi</a></li>
+                <li><a href="#" onclick="navigasi('profil')">Profil</a></li>
+                <li><a href="#" onclick="navigasi('login')">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            
+            <section id="beranda" class="page active">
+                <h2>Selamat Datang di Panel Penjualan</h2>
+                <p>Ikuti langkah berikut untuk mengelola data barang:</p>
+                <ol>
+                    <li>Masuk ke menu <strong>Login</strong> untuk autentikasi.</li>
+                    <li>Pilih menu <strong>Transaksi</strong> untuk mencatat penjualan baru.</li>
+                    <li>Pastikan semua data terisi untuk divalidasi oleh sistem.</li>
+                    <li>Cek daftar transaksi di bagian bawah halaman transaksi.</li>
+                </ol>
+            </section>
+
+            <section id="transaksi" class="page">
+                <h2>Input Transaksi Barang</h2>
+                <form id="formJual">
+                    <div class="form-control">
+                        <label>Nama Barang</label>
+                        <input type="text" id="namaBarang" placeholder="Contoh: Laptop Asus">
+                    </div>
+                    <div class="form-control">
+                        <label>Jumlah (Unit)</label>
+                        <input type="number" id="jumlah" placeholder="0">
+                    </div>
+                    <div class="form-control">
+                        <label>Kategori</label>
+                        <select id="kategori">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Elektronik">Elektronik</option>
+                            <option value="Pakaian">Pakaian</option>
+                            <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="validasiInput()">Simpan Transaksi</button>
+                </form>
+
+                <hr style="margin: 30px 0;">
+
+                <h3>Daftar Transaksi Terkini</h3>
+                <table id="tabelJual">
+                    <thead>
+                        <tr>
+                            <th>Nama Transaksi</th>
+                            <th>Jumlah</th>
+                            <th>Kategori</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </section>
+
+            <section id="profil" class="page">
+                <h2>Tentang Aplikasi</h2>
+                <p><strong>Aplikasi Penjualan Barang v1.0</strong> adalah sistem internal untuk mencatat pergerakan stok dan nilai penjualan harian secara real-time. Dibangun untuk memenuhi tugas layout web responsif.</p>
+            </section>
+
+            <section id="login" class="page">
+                <h2>Login Sistem</h2>
+                <form onsubmit="event.preventDefault(); alert('Login berhasil!')">
+                    <div class="form-control">
+                        <label>Username</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-control">
+                        <label>Password</label>
+                        <input type="password" required>
+                    </div>
+                    <button type="submit" style="background-color: var(--primary);">Masuk</button>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Aplikasi Penjualan Barang - NIM: 123456</p>
+    </footer>
+
+    <script>
+        // Fungsi untuk Navigasi Halaman
+        function navigasi(idHalaman) {
+            const semuaHalaman = document.querySelectorAll('.page');
+            semuaHalaman.forEach(hal => hal.classList.remove('active'));
+            document.getElementById(idHalaman).classList.add('active');
+        }
+
+        // Fungsi Validasi & Simpan Data
+        function validasiInput() {
+            const nama = document.getElementById('namaBarang').value;
+            const jumlah = document.getElementById('jumlah').value;
+            const kategori = document.getElementById('kategori').value;
+
+            // Validasi: Pastikan tidak kosong
+            if (nama.trim() === "" || jumlah === "" || kategori === "") {
+                alert("Peringatan: Semua kolom transaksi wajib diisi!");
+                return;
+            }
+
+            // Tambahkan ke Tabel jika valid
+            const table = document.getElementById('tabelJual').getElementsByTagName('tbody')[0];
+            const row = table.insertRow();
+            
+            row.insertCell(0).innerHTML = nama;
+            row.insertCell(1).innerHTML = jumlah;
+            row.insertCell(2).innerHTML = kategori;
+
+            // Reset Form
+            document.getElementById('formJual').reset();
+            alert("Data Berhasil Disimpan!");
+        }
+    </script>
+</body>
+</html>

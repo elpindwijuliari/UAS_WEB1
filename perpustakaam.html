@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Lib: Aplikasi Perpustakaan Digital</title>
+    <style>
+        /* 3. CSS untuk Styling */
+        :root {
+            --primary-color: #2c3e50;    /* Warna Header & Footer */
+            --secondary-color: #27ae60;  /* Warna Tombol & Aksen */
+            --text-title: #e67e22;       /* Warna Judul Aplikasi */
+            --bg-light: #f5f6fa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: #333;
+        }
+
+        /* 2. Header dan Navigasi */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-area img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 50%;
+        }
+
+        .logo-area h1 {
+            color: var(--text-title);
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--text-title);
+        }
+
+        /* Konten Utama */
+        main {
+            padding: 40px 10%;
+            min-height: 70vh;
+        }
+
+        .content-section {
+            display: none; /* Hidden by default */
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .active {
+            display: block; /* Show active section */
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        table, th, td {
+            border: 1px solid #eee;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+        }
+
+        td {
+            padding: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* 8. Responsivitas (Media Query) */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul {
+                margin-top: 20px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            main {
+                padding: 20px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <img src="https://via.placeholder.com/50" alt="Logo">
+            <h1>E-Lib Perpustakaan</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('beranda')">Beranda</a></li>
+                <li><a href="#" onclick="showSection('transaksi')">Transaksi</a></li>
+                <li><a href="#" onclick="showSection('profil')">Profil</a></li>
+                <li><a href="#" onclick="showSection('login')">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="beranda" class="content-section active">
+            <h2>Selamat Datang di E-Lib</h2>
+            <p>Ikuti langkah-langkah berikut untuk meminjam buku:</p>
+            <ul>
+                <li>Cari buku yang ingin dipinjam pada katalog.</li>
+                <li>Buka menu <strong>Transaksi</strong>.</li>
+                <li>Isi formulir peminjaman dengan Nama, Judul Buku, dan Kategori.</li>
+                <li>Klik tombol <strong>Simpan</strong> untuk memproses data.</li>
+            </ul>
+        </section>
+
+        <section id="transaksi" class="content-section">
+            <h2>Form Peminjaman Buku</h2>
+            <form id="peminjamanForm">
+                <div class="form-group">
+                    <label>Nama Peminjam:</label>
+                    <input type="text" id="peminjam" placeholder="Masukkan nama lengkap">
+                </div>
+                <div class="form-group">
+                    <label>Judul Buku:</label>
+                    <input type="text" id="judul" placeholder="Judul buku yang dipinjam">
+                </div>
+                <div class="form-group">
+                    <label>Kategori Buku:</label>
+                    <select id="kategori">
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="Sains">Sains</option>
+                        <option value="Sastra">Sastra</option>
+                        <option value="Teknologi">Teknologi</option>
+                        <option value="Sejarah">Sejarah</option>
+                    </select>
+                </div>
+                <button type="button" onclick="validateForm()">Simpan Transaksi</button>
+            </form>
+
+            <h3 style="margin-top: 40px;">Daftar Transaksi Peminjaman</h3>
+            <table id="listTransaksi">
+                <thead>
+                    <tr>
+                        <th>Nama Peminjam</th>
+                        <th>Judul Buku</th>
+                        <th>Kategori</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
+
+        <section id="profil" class="content-section">
+            <h2>Tentang E-Lib</h2>
+            <p>E-Lib adalah aplikasi manajemen perpustakaan modern yang memudahkan pustakawan dan anggota dalam melakukan proses sirkulasi buku secara digital, cepat, dan akurat.</p>
+        </section>
+
+        <section id="login" class="content-section">
+            <h2>Login Pustakawan</h2>
+            <form>
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" placeholder="Masukkan username">
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" placeholder="Masukkan password">
+                </div>
+                <button type="submit" style="background-color: var(--primary-color);">Masuk</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 E-Lib Digital Library - Mahasiswa NIM 0123</p>
+    </footer>
+
+    <script>
+        // Fungsi Navigasi Sederhana
+        function showSection(id) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // Fungsi Validasi & Simpan Data
+        function validateForm() {
+            const peminjam = document.getElementById('peminjam').value;
+            const judul = document.getElementById('judul').value;
+            const kategori = document.getElementById('kategori').value;
+
+            // Pengecekan input kosong
+            if (peminjam === "" || judul === "" || kategori === "") {
+                alert("Peringatan: Semua kolom harus diisi sebelum menyimpan!");
+                return;
+            }
+
+            // Jika valid, tambahkan ke tabel
+            const tbody = document.querySelector("#listTransaksi tbody");
+            const row = tbody.insertRow();
+            
+            row.insertCell(0).innerText = peminjam;
+            row.insertCell(1).innerText = judul;
+            row.insertCell(2).innerText = kategori;
+
+            // Bersihkan form
+            document.getElementById('peminjamanForm').reset();
+            alert("Berhasil: Data transaksi telah disimpan ke daftar.");
+        }
+    </script>
+</body>
+</html>
